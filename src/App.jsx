@@ -2,13 +2,34 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import Header from './Header'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [query, setQuery] = useState("")
+
+  const callServer = () => {
+    console.log("CLICK!");
+  }
 
   return (
     <>
       <div>
+
+      <Header/>
+
+      <h2 id="buscador">Buscador de Usuarios</h2>
+      <input type="text" id="query" value={query} onChnage={e=>setQuery(e.target.value)} placeholder="Texto a buscar"/>
+      <button id="botonsearch" onClick={()=>callServer()}>Buscar</button>
+
+
+
+
+
+
+
+
+
+
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
