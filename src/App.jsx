@@ -4,6 +4,7 @@ import Header from './Header'
 import { mock1 } from "./constants/users.js"
 import Resultados from './Resultados'
 import CONFIG from "./config/config.js"
+import Formulario from './Formulario'
 
 function App() {
   const [query, setQuery] = useState("")
@@ -23,12 +24,15 @@ function App() {
         const data = await response.json();
         console.log(data);
         setResultado(data.users);
+        setError(null);
 
       } catch(error){
-        console.log(error)
+        console.log(error);
+        setError({description: error.message}); {/* guardamos el error */}
       }
     }else{ {/* Si no, los datos mock */}
       setResultado(mock1.users)
+      setError(null);
     }
     
   }
@@ -40,11 +44,12 @@ function App() {
     <Header/>
 
     <h2 id="buscador">Buscador de Usuarios</h2>
-    <input type="text" id="query" value={query} onChnage={e=>setQuery(e.target.value)} placeholder="Texto a buscar"/>
-    <button id="botonsearch" onClick={()=>callServer()}>Buscar</button>
+    <Formulario contenido={query} setContenido={setQuery} callServer={callServer}/> {/*Formulario*/}
     <button id="botonall" onClick={()=>callServer("all")}>Buscar Todos</button>
-
+    {error && <h1>Ha habido un error: {error.description}</h1>}
     {resultado && <Resultados resultado={resultado}/>}
+
+
     </div>
   );
 }
